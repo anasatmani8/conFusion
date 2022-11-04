@@ -14,7 +14,6 @@ import {MatIconModule} from '@angular/material/icon';
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
 
-
 import 'hammerjs';
 import { MenuComponent } from './menu/menu.component';
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
@@ -23,6 +22,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +33,7 @@ import { AboutComponent } from './about/about.component';
     HeaderComponent,
     HomeComponent,
     AboutComponent,
+    ContactComponent
 
   ],
   imports: [

@@ -32,6 +32,11 @@ body {
   display:flex;
 }
 
+.containerC{
+  margin: 20px;
+  display:inline-flex ;
+}
+
 .background-primary {
   background-color: $background-dark!important;
 }
