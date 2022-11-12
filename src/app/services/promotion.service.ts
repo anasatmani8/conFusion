@@ -16,8 +16,11 @@ export class PromotionService {
   }
 
   getFeaturedPromotion(): Promise<Promotion>{
-    return  Promise.resolve( PROMOTIONS.filter((promotion) => promotion.featured)[0]);
-  }
+    return  new Promise(resolve=> {
+      // Simulate server latency with 2 second delay
+        setTimeout(() => resolve(PROMOTIONS.filter((promotion) => promotion.featured)[0]), 2000);
+      });
+    }
 
   constructor() { }
 }

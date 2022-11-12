@@ -8,17 +8,22 @@ import { LEADERS } from '../shared/leaders';
 })
 export class LeaderService {
 
-  getLeaders(): Leader[]{
-    return LEADERS;
-  }
+  getLeaders(): Promise < Leader[]>{
+    return new Promise(resolve=> {
+      // Simulate server latency with 2 second delay
+        setTimeout(() => resolve(LEADERS), 2000);
+      });
+    }
 
   getLeader(id: String):Leader{
     return LEADERS.filter((leader)=>(leader.id == id))[0];
   }
 
   getLeaderDesignation(designation: String): Promise<Leader>{
-    return Promise.resolve(LEADERS.filter((leader)=>(leader.designation == designation))[0]);
-  }
+    return new Promise(resolve=> {
+      // Simulate server latency with 2 second delay
+        setTimeout(() => resolve(LEADERS.filter((leader)=>(leader.designation == designation))[0]), 2000);
+  });}
 
   getCEO():Leader{
     return LEADERS.filter((leader)=>(leader.abbr == "CEO"))[0];
