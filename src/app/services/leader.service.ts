@@ -16,8 +16,8 @@ export class LeaderService {
     return LEADERS.filter((leader)=>(leader.id == id))[0];
   }
 
-  getLeaderDesignation(designation: String):Leader{
-    return LEADERS.filter((leader)=>(leader.designation == designation))[0];
+  getLeaderDesignation(designation: String): Promise<Leader>{
+    return Promise.resolve(LEADERS.filter((leader)=>(leader.designation == designation))[0]);
   }
 
   getCEO():Leader{
