@@ -1,55 +1,11 @@
+import { Comment } from './../shared/Comment';
 import { Dish } from './../shared/Dish';
 import { DishService } from '../services/dish.service';
 import { switchMap } from 'rxjs/operators';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-
-import { Component, OnInit } from '@angular/core';
-
-const DISH = {
-  id: '0',
-  name: 'Uthappizza',
-  image: '/assets/images/uthappizza.png',
-  category: 'mains',
-  featured: true,
-  label: 'Hot',
-  price: '4.99',
-  // tslint:disable-next-line:max-line-length
-  description: 'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.',
-  comments: [
-       {
-           rating: 5,
-           comment: 'Imagine all the eatables, living in conFusion!',
-           author: 'John Lemon',
-           date: '2012-10-16T17:57:28.556094Z'
-       },
-       {
-           rating: 4,
-           comment: 'Sends anyone to heaven, I wish I could get my mother-in-law to eat it!',
-           author: 'Paul McVites',
-           date: '2014-09-05T17:57:28.556094Z'
-       },
-       {
-           rating: 3,
-           comment: 'Eat it, just eat it!',
-           author: 'Michael Jaikishan',
-           date: '2015-02-13T17:57:28.556094Z'
-       },
-       {
-           rating: 4,
-           comment: 'Ultimate, Reaching for the stars!',
-           author: 'Ringo Starry',
-           date: '2013-12-02T17:57:28.556094Z'
-       },
-       {
-           rating: 2,
-           comment: 'It\'s your birthday, we\'re gonna party!',
-           author: '25 Cent',
-           date: '2011-12-02T17:57:28.556094Z'
-       }
-   ]
-};
-
+import { FormGroup,FormControl, Validators, FormBuilder }  from '@angular/forms';
+import { Component, OnInit,Inject, ViewChild, ViewChildren } from '@angular/core';
 
 
 @Component({
@@ -60,14 +16,61 @@ const DISH = {
 export class DishdetailComponent implements OnInit {
 
 
+  ctrl = new FormControl<number | null>(null, Validators.required);
+
+
+	toggle() {
+		if (this.ctrl.disabled) {
+			this.ctrl.enable() ;
+		} else {
+			this.ctrl.disable();
+		}
+	}
+
+
+  @ViewChild('fform')
+  feedbackFormDirective!: { resetForm: () => void; };
+
+
+  feedbackForm!: FormGroup ;
+  feedback!: Comment;
+
+
+
+  formErrors : { [char: string]: string } = {
+    'author': '',
+    'comment': '',
+
+  } as const;
+
+
+
+  validationMessages : any = {
+    'author': {
+      'required':      ' Name is required.',
+      'minlength':     ' Name must be at least 2 characters long.',
+      'maxlength':     'Name cannot be more than 25 characters long.'
+    },
+    'comment': {
+      'required':      'Comment is required.',
+      'minlength':     'Comment must be at least 4 characters long.',
+      'maxlength':     'Comment cannot be more than 25 characters long.'
+    }
+  };
+
   dish!: Dish;
   dishIds!: string[];
   prev!: string;
   next!: string;
 
+
   constructor(private dishservice: DishService,
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location,
+    private fb: FormBuilder,
+    @Inject('baseURL') public baseURL: string) {
+      this.createForm();
+     }
 
     ngOnInit() {
       this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
@@ -87,6 +90,56 @@ export class DishdetailComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+
+  }
+
+  createForm() {
+    this.feedbackForm = this.fb.group({
+      author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)] ],
+      comment: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(25)] ],
+      rating: ['', [Validators.required]]
+    });
+    this.feedbackForm.valueChanges
+      .subscribe(data => this.onValueChanged(data));
+
+    this.onValueChanged(); // (re)set validation messages now
+
+  }
+  onValueChanged(data?: any) {
+    if (!this.feedbackForm) { return; }
+    const form = this.feedbackForm;
+    for (const field in this.formErrors) {
+      if (this.formErrors.hasOwnProperty(field)) {
+        // clear previous error message (if any)
+
+        this.formErrors[field] = '';
+        const control = form.get(field);
+        if (control && control.dirty && !control.valid) {
+          const messages = this.validationMessages[field];
+          for (const key in control.errors) {
+            if (control.errors.hasOwnProperty(key)) {
+              this.formErrors[field] += messages[key] + ' ';
+            }
+          }
+        }
+      }
+    }
+  }
+
+  onSubmit(){
+
+    this.feedback = this.feedbackForm.value;
+    this.feedback.date= new Date().toString();
+    console.log(this.feedback);
+
+    this.dish.comments.push(this.feedback);
+    this.feedbackForm.reset({
+      author: '',
+      comment: ''
+    });
+    this.feedbackFormDirective.resetForm();
+
+
   }
 
 }

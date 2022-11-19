@@ -12,7 +12,7 @@ fxLayoutGap.xs="0">
   <mat-card-header>
       <mat-card-title>{{ dish.name | uppercase}}</mat-card-title>
   </mat-card-header>
-  <img mat-card-image src={{dish.image}} alt={{dish.name}}>
+  <img mat-card-image src="{{ baseURL + dish.image }}" alt={{dish.name}}>
   <mat-card-content>
       <p>{{dish.description}}</p>
   </mat-card-content>
@@ -43,6 +43,41 @@ fxLayoutGap.xs="0">
       <br>
   </mat-list-item>
 
+  <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+
+    <mat-dialog-content >
+          <mat-form-field class="half-width">
+        <input matInput formControlName="author" placeholder="Name" type="text" required>
+        <mat-error *ngIf="formErrors['author']">{{formErrors['author']}}</mat-error>
+      </mat-form-field>
+         <p>
+          <mat-slider
+          thumbLabel
+          formControlName="rating"
+
+          step="1"
+          min="0"
+          max="5"
+          aria-label="units"></mat-slider>
+
+
+        </p>
+
+
+
+
+      <mat-form-field appearance="fill">
+        <textarea  matInput formControlName="comment" placeholder="comment" type="text" required> </textarea>
+        <mat-error *ngIf="formErrors['comment']">{{formErrors['comment']}}</mat-error>
+      </mat-form-field>
+
+      <mat-dialog-actions>
+        <span class="flex-spacer"></span>
+
+        <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="fform.form.invalid">Login</button>
+      </mat-dialog-actions> </mat-dialog-content>
+
+  </form>
 
 
 

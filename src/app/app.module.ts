@@ -1,8 +1,8 @@
 import { LeaderService } from './services/leader.service';
-import { Promotion } from './shared/Promotion';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -23,6 +23,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatSliderModule} from '@angular/material/slider';
+import { baseURL } from './shared/baseurl';
 
 import 'hammerjs';
 import { MenuComponent } from './menu/menu.component';
@@ -35,6 +37,7 @@ import { ContactComponent } from './contact/contact.component';
 import { LeaderComponent } from './leader/leader.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { LoginComponent } from './login/login.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -53,6 +56,7 @@ import { LoginComponent } from './login/login.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     FlexLayoutModule,
@@ -70,18 +74,22 @@ import { LoginComponent } from './login/login.component';
     MatInputModule,
     MatCheckboxModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSliderModule,
+    NgbModule
 
   ],
   providers: [
     DishService,
     PromotionService,
     LeaderService,
+    {provide: 'baseURL', useValue: baseURL}
 
   ],
   entryComponents: [
     LoginComponent,
-    ContactComponent
+    ContactComponent,
+    DishdetailComponent
 ],
   bootstrap: [AppComponent]
 })
