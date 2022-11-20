@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
+import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -83,6 +84,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     DishService,
     PromotionService,
     LeaderService,
+    ProcessHTTPMsgService,
     {provide: 'baseURL', useValue: baseURL}
 
   ],
