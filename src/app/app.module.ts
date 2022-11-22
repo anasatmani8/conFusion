@@ -39,6 +39,7 @@ import { LeaderComponent } from './leader/leader.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { LoginComponent } from './login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ContactComponent,
     LeaderComponent,
     AboutusComponent,
-    LoginComponent
+    LoginComponent,
+    HighlightDirective
 
   ],
   imports: [
