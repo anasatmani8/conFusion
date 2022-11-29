@@ -48,9 +48,13 @@
 
   </div>
   <div *ngIf="feedbacksubmission" class="container" [@showSpinner]="visibility" >
-    <p>First name:<strong>{{feedbacksubmission['firstname']}}</strong></p>
-    <p>Last name:<strong>{{feedbacksubmission['lastname']}}</strong></p>
-    <p>Email:<strong>{{feedbacksubmission['email']}}</strong></p>
+    <h3>Insered Data </h3>
+    <p>First name:<strong>{{feedbacksubmission['firstname']}}</strong></p> <br>
+    <p>Last name:<strong>{{feedbacksubmission['lastname']}}</strong></p><br>
+    <p>Email:<strong>{{feedbacksubmission['email']}}</strong></p><br>
+    <p>Tel:<strong>{{feedbacksubmission['telnum']}}</strong></p><br>
+    <p>Message:<strong>{{feedbacksubmission['message']}}</strong></p><br>
+
 
   </div>
 <div [@showForm]="sub" >
