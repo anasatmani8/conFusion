@@ -18,7 +18,7 @@ import { flyInOut, showForm, showSpinner, expand } from '../animations/app.anima
       expand(),
       showForm(),
       showSpinner(),
-      
+
     ]
 })
 export class ContactComponent implements OnInit {

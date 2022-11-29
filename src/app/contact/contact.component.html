@@ -47,16 +47,7 @@
       <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
 
   </div>
-  <div fxFlex *ngIf="feedbacksubmission" class="container" [@showSpinner]="visibility" >
-    <h3>Inserted Data </h3>
-    <p>First name:<strong>{{feedbacksubmission['firstname']}}</strong></p> <br>
-    <p>Last name:<strong>{{feedbacksubmission['lastname']}}</strong></p><br>
-    <p>Email:<strong>{{feedbacksubmission['email']}}</strong></p><br>
-    <p>Tel:<strong>{{feedbacksubmission['telnum']}}</strong></p><br>
-    <p>Message:<strong>{{feedbacksubmission['message']}}</strong></p><br>
 
-
-  </div>
 <div [@showForm]="sub" >
     <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()"    >
 
@@ -100,6 +91,34 @@
       </p>
       <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="fform.form.invalid">Submit</button>
     </form>
+
+  </div>
+  <div *ngIf="feedbacksubmission" class="container" [@showSpinner]="visibility" >
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+        <h2>Inserted data</h2>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <dl>
+          <dt>Firstname</dt>
+          <dd>{{feedbacksubmission['firstname']}}</dd>
+          <dt>Lastname</dt>
+          <dd>{{feedbacksubmission['lastname']}}</dd>
+          <dt>email</dt>
+          <dd>{{feedbacksubmission['email']}}</dd>
+          <dt>Telephone</dt>
+          <dd>{{feedbacksubmission['telnum']}}</dd>
+          <dt>Message</dt>
+          <dd>{{feedbacksubmission['message']}}</dd>
+        </dl>
+      </mat-card-content>
+
+      <mat-card-footer>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </mat-card-footer>
+    </mat-card>
 
   </div>
   </div>

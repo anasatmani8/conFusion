@@ -24,7 +24,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {MatSliderModule} from '@angular/material/slider';
+import { MatSliderModule} from '@angular/material/slider';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { baseURL } from './shared/baseurl';
 
 import 'hammerjs';
@@ -79,6 +80,7 @@ import { HighlightDirective } from './directives/highlight.directive';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatSliderModule,
+    MatProgressBarModule,
     NgbModule
 
   ],
