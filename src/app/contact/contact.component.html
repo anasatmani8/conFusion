@@ -47,8 +47,8 @@
       <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
 
   </div>
-  <div *ngIf="feedbacksubmission" class="container" [@showSpinner]="visibility" >
-    <h3>Insered Data </h3>
+  <div fxFlex *ngIf="feedbacksubmission" class="container" [@showSpinner]="visibility" >
+    <h3>Inserted Data </h3>
     <p>First name:<strong>{{feedbacksubmission['firstname']}}</strong></p> <br>
     <p>Last name:<strong>{{feedbacksubmission['lastname']}}</strong></p><br>
     <p>Email:<strong>{{feedbacksubmission['email']}}</strong></p><br>
@@ -100,7 +100,7 @@
       </p>
       <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="fform.form.invalid">Submit</button>
     </form>
-   
+
   </div>
   </div>
 </div>
