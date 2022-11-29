@@ -38,11 +38,24 @@
     </div>
 
   </div>
-  <div fxFlex fxFlexOffset="20px" class="form-size" [@expand]>
+  <div fxFlex fxFlexOffset="20px" class="form-size"   >
     <h3>Send us your Feedback</h3>
-    <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
 
-    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+    <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
+    <div *ngIf="isLoading===true">
+      <h3>Submitting</h3>
+      <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+
+  </div>
+  <div *ngIf="feedbacksubmission" class="container" [@showSpinner]="visibility" >
+    <p>First name:<strong>{{feedbacksubmission['firstname']}}</strong></p>
+    <p>Last name:<strong>{{feedbacksubmission['lastname']}}</strong></p>
+    <p>Email:<strong>{{feedbacksubmission['email']}}</strong></p>
+
+  </div>
+<div [@showForm]="sub" >
+    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()"    >
+
       <p>
         <mat-form-field class="half-width">
           <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
@@ -78,9 +91,12 @@
       <p>
         <mat-form-field class="full-width">
           <textarea matInput formControlName="message" placeholder="Your Feedback" rows=12></textarea>
+          <mat-error *ngIf="formErrors['message']">{{formErrors['message']}}</mat-error>
         </mat-form-field>
       </p>
-      <button type="submit" mat-button class="background-primary text-floral-white">Submit</button>
+      <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="fform.form.invalid">Submit</button>
     </form>
+   
+  </div>
   </div>
 </div>

@@ -38,3 +38,31 @@ export function expand() {
       ])
   ]);
 }
+export function showSpinner(){
+  return trigger('showSpinner',[
+    state('hidden',style({
+      transform: 'scale(1.5)',
+      opacity: 0
+    })),
+    state('spinner',style({
+      transform: 'scale(2.5)',
+      opacity: 1
+    })),
+    transition(':enter',animate('10s'))
+  ])
+}
+export function showForm(){
+  return trigger('showForm',[
+
+    state('spinner',style({
+      transform: 'scale(1.0)',
+      opacity: 1
+    })),
+    state('hidden',style({
+      transform: 'scale(0.5)',
+      opacity: 0
+    })),
+    transition('hidden=>spinner',
+      animate('8s')
+  )])
+}

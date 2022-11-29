@@ -1,7 +1,8 @@
+import { FeedbackService } from './../services/feedback.service';
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { FormGroup, Validators, FormBuilder }  from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
-import { flyInOut, expand } from '../animations/app.animation';
+import { flyInOut, showForm, showSpinner, expand } from '../animations/app.animation';
 
 @Component({
   selector: 'app-contact',
@@ -14,7 +15,10 @@ import { flyInOut, expand } from '../animations/app.animation';
     },
     animations: [
       flyInOut(),
-      expand()
+      expand(),
+      showForm(),
+      showSpinner(),
+      
     ]
 })
 export class ContactComponent implements OnInit {
@@ -23,14 +27,20 @@ export class ContactComponent implements OnInit {
   feedbackFormDirective!: { resetForm: () => void; };
 
   feedbackForm!: FormGroup ;
-  feedback!: Feedback;
+  feedback!: Feedback | null;
+  isLoading:boolean=false;
+  visibility = 'spinner';
+  sub='spinner';
+  feedbacksubmission! :Feedback;
+  errMess!: string;
   contactType = ContactType;
 
   formErrors : { [char: string]: string } = {
     'firstname': '',
     'lastname': '',
     'telnum': '',
-    'email': ''
+    'email': '',
+    'message': ''
   } as const;
 
   validationMessages : any = {
@@ -52,13 +62,21 @@ export class ContactComponent implements OnInit {
       'required':      'Email is required.',
       'email':         'Email not in valid format.'
     },
+    'message': {
+      'required':      'Feedback messafe is required',
+      'minlength':     'Feedback message must be at least 5 charachters long',
+      'maxlength':     'Feedback message cannot be more than 100 charachters long'
+    }
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private feedbackService: FeedbackService) {
     this.createForm();
+
    }
 
   ngOnInit(): void {
+
   }
   createForm() {
     this.feedbackForm = this.fb.group({
@@ -68,7 +86,7 @@ export class ContactComponent implements OnInit {
       email: ['', [Validators.required, Validators.email] ],
       agree: false,
       contacttype: 'None',
-      message: ''
+      message:['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)] ]
     });
 
     this.feedbackForm.valueChanges
@@ -99,7 +117,12 @@ export class ContactComponent implements OnInit {
   }
 
 
+
   onSubmit() {
+    this.sub='hidden';
+    this.isLoading=true;
+    console.log(this.feedback);
+
     this.feedback = this.feedbackForm.value;
     console.log(this.feedback);
     this.feedbackForm.reset({
@@ -112,7 +135,37 @@ export class ContactComponent implements OnInit {
       message: ''
     });
     this.feedbackFormDirective.resetForm();
-  }
+
+
+    this.feedbackService.postFeedback(this.feedback)
+      .subscribe(feedback => {
+        setTimeout(()=>{
+          this.isLoading=false;
+          this.feedback = feedback;
+          this.feedbacksubmission=feedback;
+          this.visibility='hidden';
+          this.sub='spinner';
+        }, 5000)
+
+      });
+
+      console.log("ddddd")
+
+      this.feedbackForm.reset({
+        firstname: '',
+        lastname: '',
+        telnum: '',
+        email: '',
+        agree: false,
+        contacttype: 'None',
+        message: ''
+      });
+      this.feedbackFormDirective.resetForm();
+      console.log(this.feedback,'apres post');
+
+
+    }
+
 
 
 
