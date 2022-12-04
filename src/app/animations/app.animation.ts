@@ -14,7 +14,6 @@ export function visibility() {
     ]);
 }
 
-
 export function flyInOut() {
   return trigger('flyInOut', [
       state('*', style({ opacity: 1, transform: 'translateX(0)'})),
@@ -48,7 +47,7 @@ export function showSpinner(){
       transform: 'scale(2.5)',
       opacity: 1
     })),
-    transition(':enter',animate('10s'))
+    transition('void => *',animate('10s ease-out'))
   ])
 }
 export function showForm(){

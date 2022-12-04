@@ -47,8 +47,10 @@
       <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
 
   </div>
-
+  </div>
+  <div fxFlex>
 <div [@showForm]="sub" >
+  <div fxFlex="70" >
     <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()"    >
 
       <p>
@@ -93,7 +95,7 @@
     </form>
 
   </div>
-  <div *ngIf="feedbacksubmission" class="container" [@showSpinner]="visibility" >
+  <div  fxFlex="30" *ngIf="feedbacksubmission" class="container" [@showSpinner]="visibility" >
     <mat-card>
       <mat-card-header>
         <mat-card-title>
@@ -120,6 +122,7 @@
       </mat-card-footer>
     </mat-card>
 
+  </div>
   </div>
   </div>
 </div>
