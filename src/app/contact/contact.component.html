@@ -49,13 +49,13 @@
   </div>
   </div>
   <div fxFlex>
-<div [@showForm]="sub" >
-  <div fxFlex="70" >
-    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()"    >
+<div >
+  <div [@showForm]="sub"  fxFlex="70" >
+    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()"  >
 
       <p>
         <mat-form-field class="half-width">
-          <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
+          <input matInput formControlName="firstname" placeholder="First name" type="text" required>
           <mat-error *ngIf="formErrors['firstname']">{{formErrors['firstname']}}</mat-error>
         </mat-form-field>
         <mat-form-field class="half-width">
@@ -91,7 +91,7 @@
           <mat-error *ngIf="formErrors['message']">{{formErrors['message']}}</mat-error>
         </mat-form-field>
       </p>
-      <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="fform.form.invalid">Submit</button>
+      <button type="submit" mat-button class="background-primary text-floral-white btn-outline-success" [disabled]="fform.form.invalid">Submit</button>
     </form>
 
   </div>
@@ -104,15 +104,15 @@
       </mat-card-header>
       <mat-card-content>
         <dl>
-          <dt>Firstname</dt>
+          <dt>Firstname:</dt>
           <dd>{{feedbacksubmission['firstname']}}</dd>
-          <dt>Lastname</dt>
+          <dt>Lastname:</dt>
           <dd>{{feedbacksubmission['lastname']}}</dd>
-          <dt>email</dt>
+          <dt>Email:</dt>
           <dd>{{feedbacksubmission['email']}}</dd>
-          <dt>Telephone</dt>
+          <dt>Telephone:</dt>
           <dd>{{feedbacksubmission['telnum']}}</dd>
-          <dt>Message</dt>
+          <dt>Message:</dt>
           <dd>{{feedbacksubmission['message']}}</dd>
         </dl>
       </mat-card-content>

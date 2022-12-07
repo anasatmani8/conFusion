@@ -44,10 +44,10 @@ export function showSpinner(){
       opacity: 0
     })),
     state('spinner',style({
-      transform: 'scale(2.5)',
+      transform: 'scale(2)',
       opacity: 1
     })),
-    transition('void => *',animate('10s ease-out'))
+    transition('void => *',animate('15s ease-in'))
   ])
 }
 export function showForm(){
